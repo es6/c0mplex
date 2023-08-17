@@ -18,8 +18,27 @@ void bhop(const HMODULE instance) noexcept {
 
 	// hack loop
 	while (!GetAsyncKeyState(VK_END)) {
-		// complete Bhop functionality
-	}
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+		if (!GetAsyncKeyState(VK_SPACE)) continue;
+
+		// Get LocalPlayer
+		const auto localPlayer = *(uintptr_t*)(client + offset::dwLocalPlayer);
+		if (!localPlayer) continue;
+
+		const auto health = *(int32_t*)(localPlayer + offset::m_iHealth);
+
+		// Check if alive
+		if (!health) continue;
+
+		const auto flags = *(std::int32_t*)(localPlayer + offset::m_fFlags);
+
+		// Check if on ground
+		if (flags && (1 << 0)) {
+			*(std::uintptr_t*)(client + offset::dwForceJump) = 6; // forces jump if on ground
+		} else {
+			*(std::uintptr_t*)(client + offset::dwForceJump) = 4; // resets
+		}
 
 	// Uninject
 	FreeLibraryAndExitThread(instance, 0);
