@@ -34,12 +34,10 @@ void bhop(const HMODULE instance) noexcept {
 		const auto flags = *(std::int32_t*)(localPlayer + offset::m_fFlags);
 
 		// Check if on ground
-		if (flags && (1 << 0)) {
-			*(std::uintptr_t*)(client + offset::dwForceJump) = 6; // forces jump if on ground
-		} else {
-			*(std::uintptr_t*)(client + offset::dwForceJump) = 4; // resets
-		}
-
+		(flags & (1 << 0)) ?
+			*(std::uintptr_t*)(client + offset::dwForceJump) = 6 :
+			*(std::uintptr_t*)(client + offset::dwForceJump) = 4;
+	}
 	// Uninject
 	FreeLibraryAndExitThread(instance, 0);
 }
