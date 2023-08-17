@@ -67,7 +67,7 @@ bool gui::SetupDirectX() noexcept {
 	d3d9 = create(D3D_SDK_VERSION);
 	
 	if (!d3d9)
-		false;
+		return false;
 
 	D3DPRESENT_PARAMETERS params = { };
 	params.BackBufferWidth = 0;
@@ -88,6 +88,8 @@ bool gui::SetupDirectX() noexcept {
 	if (d3d9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_NULLREF, window, 
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_DISABLE_DRIVER_MANAGEMENT, &params, &device) < 0)
 		return false;
+
+	return true;
 }
 
 void gui::DestroyDirectX() noexcept {
