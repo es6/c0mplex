@@ -42,6 +42,7 @@ void bhop(const HMODULE instance) noexcept {
 	FreeLibraryAndExitThread(instance, 0);
 }
 
+/*
 // entry point
 int __stdcall DllMain(const HMODULE instance, const std::uintptr_t reason, const void* reserved) {
 	
@@ -56,3 +57,4 @@ int __stdcall DllMain(const HMODULE instance, const std::uintptr_t reason, const
 	}
 	return 1;
 }
+*/
