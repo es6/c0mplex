@@ -84,7 +84,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -100,7 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,6 +156,7 @@
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\hooks.cpp" />
     <ClCompile Include="src\interfaces.cpp" />
+    <ClCompile Include="src\netvar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\imgui\imconfig.h" />
@@ -176,9 +177,11 @@
     <ClInclude Include="dependencies\minhook\trampoline.h" />
     <ClInclude Include="src\datatable.h" />
     <ClInclude Include="src\entity.h" />
+    <ClInclude Include="src\FNVHashing.h" />
     <ClInclude Include="src\gui.h" />
     <ClInclude Include="src\hooks.h" />
     <ClInclude Include="src\interfaces.h" />
+    <ClInclude Include="src\netvar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

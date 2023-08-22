@@ -27,7 +27,7 @@ T* GetInterface(const char* name, const char* library) {
 class CEntity {
 public:
 	const int& GetHealth() const noexcept {
-		return *(int*)std::uintptr_t(this) + 0x100;
+		return *(int*)(std::uintptr_t(this) + 0x100);
 	}
 };
 
