@@ -63,6 +63,9 @@
     <ClCompile Include="dependencies\minhook\trampoline.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\interfaces.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gui.h">
