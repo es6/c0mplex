@@ -174,8 +174,11 @@
     <ClInclude Include="dependencies\minhook\hde\table64.h" />
     <ClInclude Include="dependencies\minhook\minhook.h" />
     <ClInclude Include="dependencies\minhook\trampoline.h" />
+    <ClInclude Include="src\datatable.h" />
+    <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\gui.h" />
     <ClInclude Include="src\hooks.h" />
+    <ClInclude Include="src\interfaces.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
