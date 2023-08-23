@@ -47,8 +47,8 @@ void features::radar() noexcept {
 
 		if (!entity)
 			continue;
-		// check if alive, if enemy
-		if (!entity->IsAlive() || entity->GetTeam() == globals::localPlayer->GetTeam())
+		// check if alive, if enemy, if dormant
+		if (!entity->IsAlive() || entity->GetTeam() == globals::localPlayer->GetTeam() || entity->IsDormant())
 			continue;
 
 		entity->Spotted() = true;

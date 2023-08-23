@@ -20,6 +20,7 @@ namespace interfaces {
 	template <typename Interface>
 	Interface* GetInterface(const char* name, const char* lib) noexcept;
 
+	// interface pointers
 	inline IBaseClientDLL* client = nullptr;
 	inline IClientModeShared* clientMode = nullptr;
 	inline IClientEntityList* entityList = nullptr;
@@ -28,4 +29,7 @@ namespace interfaces {
 	inline IStudioRender* studioRender = nullptr;
 	inline IMaterialSystem* materialSystem = nullptr;
 	inline IVModelInfo* modelInfo = nullptr;
+
+	// keyValuesSystem
+	inline void* keyValuesSystem = nullptr;
 }

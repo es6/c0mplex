@@ -22,6 +22,9 @@ void hooks::Setup() {
 	if (MH_CreateHook(VirtualFunction(gui::device, 16), &Reset, (void**)(&ResetOriginal)))
 		throw std::runtime_error("Unable to hook Reset()");
 
+	if (MH_CreateHook(memory::Get(interfaces::keyValuesSystem, 1), &AllocKeyValuesMemory, reinterpret_cast<void**>(&AllocKeyValuesMemoryOriginal)))
+		throw std::runtime_error("Unable to hook AllocKeyValuesMemory()");
+
 	if (MH_CreateHook(memory::Get(interfaces::clientMode, 24), &CreateMove, reinterpret_cast<void**>(&CreateMoveOriginal)))
 		throw std::runtime_error("Unable to hook CreateMove()");
 
@@ -38,28 +41,6 @@ void hooks::Destroy() noexcept {
 	MH_DisableHook(MH_ALL_HOOKS);
 	MH_RemoveHook(MH_ALL_HOOKS);
 	MH_Uninitialize();
-}
-
-bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept {
-	// dont run logic if not called by CInput::CreateMove
-	if (!cmd->commandNumber)
-		return CreateMoveOriginal(interfaces::clientMode, frameTime, cmd);
-
-	// set view angles if return value is true to avoid stuttering
-	if (CreateMoveOriginal(interfaces::clientMode, frameTime, cmd))
-		interfaces::engine->SetViewAngles(cmd->viewAngles);
-
-	// get local player
-	globals::UpdateLocalPlayer();
-
-	if (globals::localPlayer && globals::localPlayer->IsAlive()) {
-		// Run hacks
-		// features::trigger(frameTime, cmd);
-		// features::bhop(cmd);
-		// features::radar();
-	}
-
-	return false;
 }
 
 long __stdcall hooks::EndScene(IDirect3DDevice9* device) noexcept {
@@ -87,6 +68,40 @@ HRESULT __stdcall hooks::Reset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* 
 	const auto result = ResetOriginal(device, device, params);
 	ImGui_ImplDX9_CreateDeviceObjects();
 	return result;
+}
+
+void* __stdcall hooks::AllocKeyValuesMemory(const std::int32_t size) noexcept
+{
+	// if function is returning to speficied addresses, return nullptr to "bypass"
+	if (const std::uint32_t address = reinterpret_cast<std::uint32_t>(_ReturnAddress());
+		address == reinterpret_cast<std::uint32_t>(memory::allocKeyValuesEngine) ||
+		address == reinterpret_cast<std::uint32_t>(memory::allocKeyValuesClient))
+		return nullptr;
+
+	// return original
+	return AllocKeyValuesMemoryOriginal(interfaces::keyValuesSystem, size);
+}
+
+bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept {
+	// dont run logic if not called by CInput::CreateMove
+	if (!cmd->commandNumber)
+		return CreateMoveOriginal(interfaces::clientMode, frameTime, cmd);
+
+	// set view angles if return value is true to avoid stuttering
+	if (CreateMoveOriginal(interfaces::clientMode, frameTime, cmd))
+		interfaces::engine->SetViewAngles(cmd->viewAngles);
+
+	// get local player
+	globals::UpdateLocalPlayer();
+
+	if (globals::localPlayer && globals::localPlayer->IsAlive()) {
+		// Run hacks
+		// features::trigger(frameTime, cmd);
+		// features::bhop(cmd);
+		// features::radar();
+	}
+
+	return false;
 }
 
 void __stdcall hooks::DrawModel(

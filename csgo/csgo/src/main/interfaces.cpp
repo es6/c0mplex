@@ -11,6 +11,11 @@ void interfaces::Setup() noexcept {
 	materialSystem = GetInterface<IMaterialSystem>("VMaterialSystem080", "materialsystem.dll");
 	studioRender = GetInterface<IStudioRender>("VStudioRender026", "studiorender.dll");
 	modelInfo = GetInterface<IVModelInfo>("VModelInfoClient004", "engine.dll");
+
+	// get the exported KeyValuesSystem function
+	if (const HINSTANCE handle = GetModuleHandle("vstdlib.dll"))
+		// set our pointer by calling the function
+		keyValuesSystem = reinterpret_cast<void* (__cdecl*)()>(GetProcAddress(handle, "KeyValuesSystem"))();
 };
 
 template <typename Interface>

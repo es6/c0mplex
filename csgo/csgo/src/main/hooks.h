@@ -15,6 +15,11 @@ namespace hooks {
 		return (*static_cast<void***>(thisptr))[index];
 	}
 
+	// Bypass Return Address Checking
+	using AllocKeyValuesMemoryFn = void* (__thiscall*)(void*, const std::int32_t) noexcept;
+	inline AllocKeyValuesMemoryFn AllocKeyValuesMemoryOriginal;
+	void* __stdcall AllocKeyValuesMemory(const std::int32_t size) noexcept;
+
 	// ImGui
 	using EndSceneFn = long(__thiscall*)(void*, IDirect3DDevice9*) noexcept;
 	inline EndSceneFn EndSceneOriginal = nullptr;

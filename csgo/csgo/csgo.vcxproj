@@ -158,6 +158,7 @@
     <ClCompile Include="src\main\hooks.cpp" />
     <ClCompile Include="src\main\interfaces.cpp" />
     <ClCompile Include="src\main\netvar.cpp" />
+    <ClCompile Include="src\util\memory.cpp" />
     <ClCompile Include="src\valve\ibaseclientdll.h" />
   </ItemGroup>
   <ItemGroup>
