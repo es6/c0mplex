@@ -69,7 +69,7 @@
     <ClCompile Include="src\valve\ibaseclientdll.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\features\misc.cpp">
+    <ClCompile Include="src\features\features.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\main\globals.cpp">
@@ -188,7 +188,7 @@
     <ClInclude Include="src\valve\ivmodelinfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\features\misc.h">
+    <ClInclude Include="src\features\features.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

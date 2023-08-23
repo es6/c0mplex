@@ -10,7 +10,7 @@ C:\Users\benli\source\repos\c0mplex\csgo\csgo\dependencies\minhook\hde\hde32.c;C
 C:\Users\benli\source\repos\c0mplex\csgo\csgo\dependencies\minhook\hde\hde64.c;C:\Users\benli\source\repos\c0mplex\csgo\$build\intermediates\hde64.obj
 C:\Users\benli\source\repos\c0mplex\csgo\csgo\dependencies\minhook\hook.c;C:\Users\benli\source\repos\c0mplex\csgo\$build\intermediates\hook.obj
 C:\Users\benli\source\repos\c0mplex\csgo\csgo\dependencies\minhook\trampoline.c;C:\Users\benli\source\repos\c0mplex\csgo\$build\intermediates\trampoline.obj
-C:\Users\benli\source\repos\c0mplex\csgo\csgo\src\features\misc.cpp;C:\Users\benli\source\repos\c0mplex\csgo\$build\intermediates\misc.obj
+C:\Users\benli\source\repos\c0mplex\csgo\csgo\src\features\features.cpp;C:\Users\benli\source\repos\c0mplex\csgo\$build\intermediates\features.obj
 C:\Users\benli\source\repos\c0mplex\csgo\csgo\src\main\dllmain.cpp;C:\Users\benli\source\repos\c0mplex\csgo\$build\intermediates\dllmain.obj
 C:\Users\benli\source\repos\c0mplex\csgo\csgo\src\main\globals.cpp;C:\Users\benli\source\repos\c0mplex\csgo\$build\intermediates\globals.obj
 C:\Users\benli\source\repos\c0mplex\csgo\csgo\src\main\gui.cpp;C:\Users\benli\source\repos\c0mplex\csgo\$build\intermediates\gui.obj

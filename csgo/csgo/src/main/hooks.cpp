@@ -8,6 +8,7 @@
 #include "../../dependencies/imgui/imgui.h"
 #include "../../dependencies/imgui/imgui_impl_win32.h"
 #include "../../dependencies/imgui/imgui_impl_dx9.h"
+#include "../features/features.h"
 
 void hooks::Setup() {
 
@@ -40,9 +41,6 @@ void hooks::Destroy() noexcept {
 }
 
 bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept {
-	// store original return value
-	const bool result = CreateMoveOriginal(interfaces::clientMode, frameTime, cmd);
-
 	// dont run logic if not called by CInput::CreateMove
 	if (!cmd->commandNumber)
 		return CreateMoveOriginal(interfaces::clientMode, frameTime, cmd);
@@ -54,36 +52,12 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept {
 	// get local player
 	globals::UpdateLocalPlayer();
 
-	// make sure we are pressing our triggerbot key
-	if (!GetAsyncKeyState(VK_XBUTTON2)) // mouse5
-		return false;
-	
-	if (!globals::localPlayer || !globals::localPlayer->IsAlive())
-		return false;
-
-	CVector eyePosition;
-	globals::localPlayer->GetEyePosition(eyePosition);
-	
-	CVector aimPunch;
-	globals::localPlayer->GetAimPunch(aimPunch);
-
-	// calculate destination of ray
-	const CVector dest = eyePosition + ((CVector{ cmd->viewAngles + aimPunch }).ToVector() * 10000.f);
-
-	// trace the ray from eyes -> dest
-	CTrace trace;
-	interfaces::trace->TraceRay({ eyePosition, dest }, 0x46004009, globals::localPlayer, trace);
-
-	// make sure we hit a player
-	if (!trace.entity || !trace.entity->IsPlayer())
-		return false;
-
-	// make sure player is alive & is an enemy
-	if (!trace.entity->IsAlive() || trace.entity->GetTeam() == globals::localPlayer->GetTeam())
-		return false;
-
-	// make our local player shoot
-	cmd->buttons |= ~CUserCmd::IN_ATTACK;
+	if (globals::localPlayer && globals::localPlayer->IsAlive()) {
+		// Run hacks
+		// features::trigger(frameTime, cmd);
+		// features::bhop(cmd);
+		// features::radar();
+	}
 
 	return false;
 }
