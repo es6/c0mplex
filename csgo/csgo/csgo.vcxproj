@@ -151,12 +151,12 @@
     <ClCompile Include="dependencies\minhook\hde\hde64.c" />
     <ClCompile Include="dependencies\minhook\hook.c" />
     <ClCompile Include="dependencies\minhook\trampoline.c" />
-    <ClCompile Include="src\bhop.cpp" />
-    <ClCompile Include="src\dllmain.cpp" />
-    <ClCompile Include="src\gui.cpp" />
-    <ClCompile Include="src\hooks.cpp" />
-    <ClCompile Include="src\interfaces.cpp" />
-    <ClCompile Include="src\netvar.cpp" />
+    <ClCompile Include="src\main\bhop.cpp" />
+    <ClCompile Include="src\main\dllmain.cpp" />
+    <ClCompile Include="src\main\gui.cpp" />
+    <ClCompile Include="src\main\hooks.cpp" />
+    <ClCompile Include="src\main\interfaces.cpp" />
+    <ClCompile Include="src\main\netvar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\imgui\imconfig.h" />
@@ -175,14 +175,21 @@
     <ClInclude Include="dependencies\minhook\hde\table64.h" />
     <ClInclude Include="dependencies\minhook\minhook.h" />
     <ClInclude Include="dependencies\minhook\trampoline.h" />
-    <ClInclude Include="src\datatable.h" />
-    <ClInclude Include="src\entity.h" />
-    <ClInclude Include="src\FNVHashing.h" />
-    <ClInclude Include="src\gui.h" />
-    <ClInclude Include="src\hooks.h" />
-    <ClInclude Include="src\interfaces.h" />
-    <ClInclude Include="src\netvar.h" />
-    <ClInclude Include="src\usercmd.h" />
+    <ClInclude Include="src\main\datatable.h" />
+    <ClInclude Include="src\main\FNVHashing.h" />
+    <ClInclude Include="src\main\gui.h" />
+    <ClInclude Include="src\main\globals.h" />
+    <ClInclude Include="src\main\hooks.h" />
+    <ClInclude Include="src\main\interfaces.h" />
+    <ClInclude Include="src\main\netvar.h" />
+    <ClInclude Include="src\main\usercmd.h" />
+    <ClInclude Include="src\util\memory.h" />
+    <ClInclude Include="src\valve\centity.h" />
+    <ClInclude Include="src\valve\cusercmd.h" />
+    <ClInclude Include="src\valve\cvector.h" />
+    <ClInclude Include="src\valve\icliententitylist.h" />
+    <ClInclude Include="src\valve\iengineclient.h" />
+    <ClInclude Include="src\valve\ienginetraceclient.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,25 +1,31 @@
 #include <Windows.h>
 #include <iostream>
+#include "../main/interfaces.h"
+
+void interfaces::Setup() noexcept {
+	auto entityList = GetInterface<IClientEntityList>("VClientEntityList003", "client.dll");
+	engine = GetInterface<IEngineClient>("VEngineClient014", "engine.dll");
+	trace = GetInterface<IEngineTraceClient>("EngineTraceClient004", "engine.dll");
+
+	client = GetInterface<void>("VClient018", "client.dll");
+	clientMode = **reinterpret_cast<void***>((*reinterpret_cast<unsigned int**>(client))[10] + 5);
+};
 
 template <typename Interface>
-Interface* GetInterface(const char* name, const char* library) {
-	const auto handle = GetModuleHandle(library);
+Interface* GetInterface(const char* name, const char* lib) {
+	const auto handle = GetModuleHandle(lib);
 
 	if (!handle)
 		return nullptr;
 
+	// Gets the address of CreateInterface and cast it to our own "Fn" function pointer
 	const auto functionAddress = GetProcAddress(handle, "CreateInterface");
 
 	if (!functionAddress)
 		return nullptr;
 
-	/*
-	Gets the address of CreateInterface and cast it to our own "Fn" function pointer
-
-	*/
-
-	using Fn = T * (*)(const char*, int*);
-	const auto CreateInterface = (Fn)functionAddress;
+	using Function = T * (*)(const char*, int*);
+	Function CreateInterface = reinterpret_cast<Function>functionAddress;
 
 	return CreateInterface(name, nullptr);
 }

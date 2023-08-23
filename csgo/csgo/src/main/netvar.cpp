@@ -6,7 +6,7 @@
 
 void SetupNetvars() {
 	// loop through LL
-	for (auto clientClass = client->GetAllClasses(); clientClass != nullptr; clientClass = clientClass->next) {
+	for (auto clientClass = interfaces::client2->GetAllClasses(); clientClass != nullptr; clientClass = clientClass->next) {
 		// check for valid table
 		if (clientClass->recvTable) {
 			// recursive dump

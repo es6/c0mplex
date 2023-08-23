@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\bhop.cpp">
+    <ClCompile Include="src\main\bhop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\dllmain.cpp">
+    <ClCompile Include="src\main\dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui.cpp">
+    <ClCompile Include="src\main\gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hooks.cpp">
+    <ClCompile Include="src\main\hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dependencies\imgui\imgui.cpp">
@@ -63,18 +63,18 @@
     <ClCompile Include="dependencies\minhook\trampoline.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\interfaces.cpp">
+    <ClCompile Include="src\main\interfaces.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\netvar.cpp">
+    <ClCompile Include="src\main\netvar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\gui.h">
+    <ClInclude Include="src\main\gui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\hooks.h">
+    <ClInclude Include="src\main\hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dependencies\imgui\imconfig.h">
@@ -125,22 +125,43 @@
     <ClInclude Include="dependencies\minhook\trampoline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\interfaces.h">
+    <ClInclude Include="src\main\interfaces.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\entity.h">
+    <ClInclude Include="src\main\datatable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\datatable.h">
+    <ClInclude Include="src\main\FNVHashing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\FNVHashing.h">
+    <ClInclude Include="src\main\netvar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\netvar.h">
+    <ClInclude Include="src\main\usercmd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\usercmd.h">
+    <ClInclude Include="src\main\globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\centity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\cusercmd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\cvector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\icliententitylist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\iengineclient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\ienginetraceclient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

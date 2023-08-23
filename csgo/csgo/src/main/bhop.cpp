@@ -2,33 +2,11 @@
 #include <Windows.h>
 #include <cstdint>
 #include <thread>
-#include "../dependencies/minhook/minhook.h"
+#include "../../dependencies/minhook/minhook.h"
 #include "interfaces.h"
 #include "hooks.h"
 #include "usercmd.h"
-
-template <typename T>
-T* GetInterface(const char* name, const char* library) {
-	const auto handle = GetModuleHandle(library);
-
-	if (!handle)
-		return nullptr;
-
-	const auto functionAddress = GetProcAddress(handle, "CreateInterface");
-
-	if (!functionAddress)
-		return nullptr;
-
-	/*
-	Gets the address of CreateInterface and cast it to our own "Fn" function pointer
-
-	*/
-
-	using Fn = T * (*)(const char*, int*);
-	const auto CreateInterface = (Fn)functionAddress;
-
-	return CreateInterface(name, nullptr);
-}
+#include "interfaces.h"
 
 using CreateMove = bool(__thiscall*)(void*, float, UserCmd*);
 static CreateMove CreateMoveOriginal = nullptr;
@@ -37,7 +15,7 @@ constexpr ::std::ptrdiff_t dwLocalPlayer = 0xDEA98C;
 constexpr ::std::ptrdiff_t m_fFlags = 0x104;
 
 bool __stdcall CreateMove_Bhop(float frameTime, UserCmd* cmd) {
-	const bool result = CreateMoveOriginal(g_ClientMode, frameTime, cmd);
+	const bool result = CreateMoveOriginal(interfaces::clientMode, frameTime, cmd);
 
 	if (cmd->commandNumber == 0) {
 		return false;

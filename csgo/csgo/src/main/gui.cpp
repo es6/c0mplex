@@ -1,10 +1,8 @@
 #include "gui.h"
-
-#include "../dependencies/imgui/imgui.h"
-#include "../dependencies/imgui/imgui_impl_win32.h"
-#include "../dependencies/imgui/imgui_impl_dx9.h"
-
 #include <stdexcept>
+#include "../../dependencies/imgui/imgui.h"
+#include "../../dependencies/imgui/imgui_impl_win32.h"
+#include "../../dependencies/imgui/imgui_impl_dx9.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND window, UINT message, WPARAM wideParam, LPARAM longParam);
 

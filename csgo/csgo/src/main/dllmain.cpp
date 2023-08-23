@@ -2,10 +2,7 @@
 #include <Windows.h>
 #include <thread>
 #include <cstdint>
-#include "interfaces.h"
 #include "hooks.h"
-#include "usercmd.h"
-#include "../dependencies/minhook/minhook.h"
 
 /*
 * Breakdown of Execution
@@ -26,9 +23,10 @@
 */
 
 
-void Setup(const HMODULE instance) {
+DWORD WINAPI Setup(LPVOID instance) {
 	try {
 		// Initialize our cheat
+		interfaces::Setup();
 		gui::Setup();
 		hooks::Setup(); 
 	}
@@ -39,7 +37,7 @@ void Setup(const HMODULE instance) {
 		goto UNLOAD;
 	} 
 
-	while (!GetAsyncKeyState(VK_DELETE)) {
+	while (!GetAsyncKeyState(VK_END)) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
 
@@ -47,14 +45,14 @@ UNLOAD:
 	hooks::Destroy();
 	gui::Destroy();
 
-	FreeLibraryAndExitThread(instance, 0);
+	FreeLibraryAndExitThread(static_cast<HMODULE>(instance), EXIT_SUCCESS);
 }
 
-BOOL WINAPI DllMain(const HMODULE instance, const std::uintptr_t reason, const void* reserved) {
+BOOL APIENTRY DllMain(HMODULE instance, DWORD reason, LPVOID reserved) {
 	if (reason == DLL_PROCESS_ATTACH) {
 		DisableThreadLibraryCalls(instance);
 
-		const HANDLE thread = CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)Setup, instance, NULL, nullptr);
+		const HANDLE thread = CreateThread(nullptr, 0, Setup, instance, 0, nullptr);
 		if (thread)
 			CloseHandle(thread);
 
