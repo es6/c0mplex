@@ -21,11 +21,11 @@ void hooks::Setup() {
 	if (MH_CreateHook(VirtualFunction(gui::device, 16), &Reset, (void**)(&ResetOriginal)))
 		throw std::runtime_error("Unable to hook Reset()");
 
-	if (MH_CreateHook(
-		memory::Get(interfaces::clientMode, 24), // CreateMove is index 24
-		&CreateMove,
-		reinterpret_cast<void**>(&CreateMoveOriginal)))
-			throw std::runtime_error("Unable to hook CreateMove()");
+	if (MH_CreateHook(memory::Get(interfaces::clientMode, 24), &CreateMove, reinterpret_cast<void**>(&CreateMoveOriginal)))
+		throw std::runtime_error("Unable to hook CreateMove()");
+
+	if (MH_CreateHook(memory::Get(interfaces::studioRender, 29), &DrawModel, reinterpret_cast<void**>(&DrawModelOriginal)))
+		throw std::runtime_error("Unable to hook DrawModel()");
 
 	if (MH_EnableHook(MH_ALL_HOOKS))
 		throw std::runtime_error("Unable to enable hooks");
@@ -113,4 +113,45 @@ HRESULT __stdcall hooks::Reset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* 
 	const auto result = ResetOriginal(device, device, params);
 	ImGui_ImplDX9_CreateDeviceObjects();
 	return result;
+}
+
+void __stdcall hooks::DrawModel(
+	void* results,
+	const CDrawModelInfo& info,
+	CMatrix3x4* bones,
+	float* flexWeights,
+	float* flexDelayedWeights,
+	const CVector& modelOrigin,
+	const std::int32_t flags
+) noexcept {
+	// make sure local player and renderable pointer != nullptr or else crashes
+	if (globals::localPlayer && info.renderable) {
+		// get base entity poitner from IClientUnknown
+		CEntity* entity = info.renderable->GetIClientUnknown()->GetBaseEntity();
+
+		// make sure entity is a valid enemy player
+		if (entity && entity->IsPlayer() && entity->GetTeam() != globals::localPlayer->GetTeam()) {
+			// gets material to override
+			static IMaterial* material = interfaces::materialSystem->FindMaterial("debug/debugambientcube");
+
+			// modulate alpha
+			interfaces::studioRender->SetAlphaModulation(1.f);
+
+			// show through walls
+			material->SetMaterialVarFlag(IMaterial::IGNOREZ, true);
+			interfaces::studioRender->SetColorModulation(globals::hidden);
+			interfaces::studioRender->ForcedMaterialOverride(material);
+			DrawModelOriginal(interfaces::studioRender, results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
+
+			// show only visible
+			material->SetMaterialVarFlag(IMaterial::IGNOREZ, false);
+			interfaces::studioRender->SetColorModulation(globals::visible);
+			interfaces::studioRender->ForcedMaterialOverride(material);
+			DrawModelOriginal(interfaces::studioRender, results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
+
+			// reset material override and return from hook
+			return interfaces::studioRender->ForcedMaterialOverride(nullptr); 
+		}
+	}
+	DrawModelOriginal(interfaces::studioRender, results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
 }

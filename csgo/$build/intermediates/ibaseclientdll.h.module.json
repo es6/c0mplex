@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "C:\\Users\\benli\\source\\repos\\c0mplex\\csgo\\$build\\intermediates\\ibaseclientdll.h.obj",
+            "outputs": [
+                "C:\\Users\\benli\\source\\repos\\c0mplex\\csgo\\$build\\intermediates\\vc143.pdb",
+                "C:\\Users\\benli\\source\\repos\\c0mplex\\csgo\\$build\\intermediates\\",
+                "C:\\Users\\benli\\source\\repos\\c0mplex\\csgo\\$build\\intermediates\\ibaseclientdll.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "src\\valve\\ibaseclientdll.h",
+                    "source-path": "c:\\users\\benli\\source\\repos\\c0mplex\\csgo\\csgo\\src\\valve\\ibaseclientdll.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

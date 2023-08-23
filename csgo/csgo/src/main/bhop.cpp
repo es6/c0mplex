@@ -5,9 +5,10 @@
 #include "../../dependencies/minhook/minhook.h"
 #include "interfaces.h"
 #include "hooks.h"
-#include "usercmd.h"
+#include "../valve/cusercmd.h"
 #include "interfaces.h"
 
+/*
 using CreateMove = bool(__thiscall*)(void*, float, UserCmd*);
 static CreateMove CreateMoveOriginal = nullptr;
 
@@ -36,6 +37,8 @@ bool __stdcall CreateMove_Bhop(float frameTime, UserCmd* cmd) {
 
 	return false;
 }
+
+*/
 
 /*
 	// We first initialize MinHook, create a hook to CreateMove in CSGO - complete our CreateMoveHook function - then repass in the original CreateMove to return code flow

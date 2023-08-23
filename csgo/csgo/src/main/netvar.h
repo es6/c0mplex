@@ -1,21 +1,24 @@
 #pragma once
-#include "FNVHashing.h"
-#include "datatable.h"
+#include "../util/hash.h"
 
 #include <unordered_map>
+#include <type_traits>
 
-// Call once to dump netvars
-void SetupNetvars();
+class CRecvTable;
+namespace netvars
+{
+	// call once to recursively dump all netvars
+	void Setup() noexcept;
 
-// Recursive dump
-void Dump(const char* baseClass, RecvTable* table, std::uint32_t offset = 0);
+	void Dump(const std::string_view base, CRecvTable* table, const std::uint32_t offset = 0) noexcept;
 
-// Store offsets
-// Store hash netvar name as key, value is the offset
-inline std::unordered_map<std::uint32_t, std::uint32_t> netvars;
+	// store netvars
+	inline std::unordered_map<std::uint32_t, std::uint32_t> data = { };
+}
 
-#define NETVAR(func_name, netvar, type) type& func_name() \
+#define NETVAR(name, var, ...) \
+inline std::add_lvalue_reference_t<__VA_ARGS__> name() noexcept \
 { \
-	static auto offset = netvars[fnv::HashConst(netvar)]; \
-	return *(type*)(std::uint32_t(this) + offset); \
+	static const std::uint32_t offset = netvars::data[hash::CompileTime(var)]; \
+	return *reinterpret_cast<std::add_pointer_t<__VA_ARGS__>>(std::uint32_t(this) + offset); \
 }

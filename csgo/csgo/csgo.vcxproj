@@ -157,6 +157,7 @@
     <ClCompile Include="src\main\hooks.cpp" />
     <ClCompile Include="src\main\interfaces.cpp" />
     <ClCompile Include="src\main\netvar.cpp" />
+    <ClCompile Include="src\valve\ibaseclientdll.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\imgui\imconfig.h" />
@@ -175,21 +176,27 @@
     <ClInclude Include="dependencies\minhook\hde\table64.h" />
     <ClInclude Include="dependencies\minhook\minhook.h" />
     <ClInclude Include="dependencies\minhook\trampoline.h" />
-    <ClInclude Include="src\main\datatable.h" />
-    <ClInclude Include="src\main\FNVHashing.h" />
+    <ClInclude Include="src\util\hash.h" />
     <ClInclude Include="src\main\gui.h" />
     <ClInclude Include="src\main\globals.h" />
     <ClInclude Include="src\main\hooks.h" />
     <ClInclude Include="src\main\interfaces.h" />
     <ClInclude Include="src\main\netvar.h" />
-    <ClInclude Include="src\main\usercmd.h" />
     <ClInclude Include="src\util\memory.h" />
+    <ClInclude Include="src\valve\cclientclass.h" />
     <ClInclude Include="src\valve\centity.h" />
+    <ClInclude Include="src\valve\cmatrix.h" />
+    <ClInclude Include="src\valve\crecvtable.h" />
     <ClInclude Include="src\valve\cusercmd.h" />
     <ClInclude Include="src\valve\cvector.h" />
     <ClInclude Include="src\valve\icliententitylist.h" />
-    <ClInclude Include="src\valve\iengineclient.h" />
+    <ClInclude Include="src\valve\iclientmodeshared.h" />
+    <ClInclude Include="src\valve\ispatialquery.h" />
+    <ClInclude Include="src\valve\ivengineclient.h" />
     <ClInclude Include="src\valve\ienginetraceclient.h" />
+    <ClInclude Include="src\valve\imaterialsystems.h" />
+    <ClInclude Include="src\valve\istudiorender.h" />
+    <ClInclude Include="src\valve\ivmodelinfo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

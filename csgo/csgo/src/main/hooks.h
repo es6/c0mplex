@@ -6,6 +6,7 @@ namespace hooks {
 	void Setup();
 	void Destroy() noexcept;
 
+	// CreateMove
 	using CreateMoveFunction = bool(__thiscall*)(void*, float, CUserCmd*) noexcept;
 	inline CreateMoveFunction CreateMoveOriginal = nullptr;
 	bool __stdcall CreateMove(float frameTime, CUserCmd* cmd) noexcept;
@@ -14,8 +15,7 @@ namespace hooks {
 		return (*static_cast<void***>(thisptr))[index];
 	}
 
-	// create typedef for EndScene
-	// EndScene is our rendering function to hook
+	// ImGui
 	using EndSceneFn = long(__thiscall*)(void*, IDirect3DDevice9*) noexcept;
 	inline EndSceneFn EndSceneOriginal = nullptr;
 	long __stdcall EndScene(IDirect3DDevice9* device) noexcept;
@@ -23,4 +23,30 @@ namespace hooks {
 	using ResetFn = HRESULT(__thiscall*)(void*, IDirect3DDevice9*, D3DPRESENT_PARAMETERS*) noexcept;
 	inline ResetFn ResetOriginal = nullptr;
 	HRESULT __stdcall Reset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* params) noexcept;
+
+	// DrawModel
+	using DrawModelFn = void(__thiscall*)(
+		void*,
+		void*,
+		const CDrawModelInfo&,
+		CMatrix3x4*,
+		float*,
+		float*,
+		const CVector&,
+		const std::int32_t
+		) noexcept;
+
+	// original function pointer
+	inline DrawModelFn DrawModelOriginal = nullptr;
+	
+	// hooked function definition
+	void __stdcall DrawModel(
+		void* results,
+		const CDrawModelInfo& info,
+		CMatrix3x4* bones,
+		float* flexWeights,
+		float* flexDelayedWeights,
+		const CVector& modelOrigin,
+		const std::int32_t flags
+	) noexcept;
 }

@@ -1,59 +1,51 @@
 #include "netvar.h"
 #include "interfaces.h"
 
-#include <ctype.h>
 #include <format>
 
-void SetupNetvars() {
-	// loop through LL
-	for (auto clientClass = interfaces::client2->GetAllClasses(); clientClass != nullptr; clientClass = clientClass->next) {
-		// check for valid table
-		if (clientClass->recvTable) {
-			// recursive dump
-			Dump(clientClass->networkName, clientClass->recvTable);
-		}
-	}
+void netvars::Setup() noexcept
+{
+	// loop through linked-list and recursicely dump
+	for (CClientClass* client = interfaces::client->GetAllClasses(); client; client = client->next)
+		if (CRecvTable* table = client->table)
+			Dump(client->networkName, table, 0);
 }
 
-void Dump(const char* baseClass, RecvTable* table, std::uint32_t offset) {
-	for (auto i = 0; i < table->propsCount; ++i) {
-		const auto prop = &table->props[i];
+void netvars::Dump(const std::string_view base, CRecvTable* table, const std::uint32_t offset) noexcept
+{
+	// loop through props
+	for (auto i = 0; i < table->count; ++i) {
+		const CRecvProp* prop = &table->props[i];
 
-		// checks if prop is valid and if the prop starts with a digit
-		// - props with a digit are not valid for us
-		if (!prop || isdigit(prop->varName[0]))
-			continue;
-		
-		// Check that we're not storing a baseclass
-		if (fnv::Hash(prop->varName) == fnv::HashConst("baseclass"))
+		if (!prop)
 			continue;
 
-		/* Checks that our prop is of type DATATABLE
-		   Then checks for valid data table
-		   Then checks for the first table name to be D
-		   If this is true, there are more props to dump
-		*/
-		if (prop->recvType == SendPropType::DATATABLE &&
-			prop->dataTable &&
-			prop->dataTable->tableName[0] == 'D')
-			Dump(baseClass, prop->dataTable, offset + prop->offset);
+		if (std::isdigit(prop->name[0]))
+			continue;
 
-		const auto netvarName = std::format("{}->{}", baseClass, prop->varName);
+		if (hash::RunTime(prop->name) == hash::CompileTime("baseclass"))
+			continue;
 
-		netvars[fnv::Hash(netvarName.c_str())] = offset + prop->offset;
+		// not a root table, dump again
+		if (prop->type == ESendPropType::DATATABLE &&
+			prop->table &&
+			prop->table->name[0] == 'D')
+			Dump(base, prop->table, offset + prop->offset);
+
+		// place offset in netvar map
+		data[hash::RunTime(std::format("{}->{}", base, prop->name).c_str())] = offset + prop->offset;
 	}
 }
-
 
 /*
 Netvar Usage Example with radar hack
- 
+
 void HackThread(HMODULE instance) {
 	client = GetInterface<IClient>("VClient018", "client.dll");
 	entityList = GetInterface<IEntityList>("VClientEntityList003", "client.dll");
 
 	SetupNetvars();
-	
+
 	while (!GetAsyncKeyState(VK_END)) {
 		for (auto i = 1; i <= 64, ++i) {
 			const auto entity = entityList->GetClientEntity(i);

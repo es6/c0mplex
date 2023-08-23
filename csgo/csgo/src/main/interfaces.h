@@ -1,10 +1,15 @@
 #pragma once
 #include "../valve/centity.h"
-#include "datatable.h"
 #include "globals.h"
 #include "../valve/icliententitylist.h"
-#include "../valve/iengineclient.h"
+#include "../valve/ivengineclient.h"
 #include "../valve/ienginetraceclient.h"
+#include "../valve/istudiorender.h"
+#include "../valve/cmatrix.h"
+#include "../valve/imaterialsystems.h"
+#include "../valve/ibaseclientdll.h"
+#include "../valve/iclientmodeshared.h"
+#include "../valve/ivmodelinfo.h"
 
 namespace interfaces {
 	// call once to setup interfaces
@@ -12,37 +17,15 @@ namespace interfaces {
 
 	// capture interfaces via version striings
 	// using exported CreateInterface function
-	template <typename T>
-	T* GetInterface(const char* name, const char* lib) noexcept;
+	template <typename Interface>
+	Interface* GetInterface(const char* name, const char* lib) noexcept;
 
+	inline IBaseClientDLL* client = nullptr;
+	inline IClientModeShared* clientMode = nullptr;
 	inline IClientEntityList* entityList = nullptr;
-	inline IEngineClient* engine = nullptr;
+	inline IVEngineClient* engine = nullptr;
 	inline IEngineTraceClient* trace = nullptr;
-
-	inline void* client = nullptr;
-	inline IClient* client2 = nullptr;
-	inline void* clientMode = nullptr;
+	inline IStudioRender* studioRender = nullptr;
+	inline IMaterialSystem* materialSystem = nullptr;
+	inline IVModelInfo* modelInfo = nullptr;
 }
-
-class IClientEntityList {
-private:
-	virtual void Unused0() = 0;
-	virtual void Unused1() = 0;
-	virtual void Unused2() = 0;
-public:
-	virtual CEntity* GetClientEntity(int index) = 0;
-};
-
-class IClient {
-private:
-	virtual void Unused0() = 0;
-	virtual void Unused1() = 0;
-	virtual void Unused2() = 0;
-	virtual void Unused3() = 0;
-	virtual void Unused4() = 0;
-	virtual void Unused5() = 0;
-	virtual void Unused6() = 0;
-	virtual void Unused7() = 0;
-public:
-	virtual ClientClass* GetAllClasses(void) = 0;
-};
