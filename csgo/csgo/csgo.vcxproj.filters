@@ -140,5 +140,8 @@
     <ClInclude Include="src\netvar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\usercmd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

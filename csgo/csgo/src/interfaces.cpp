@@ -1,8 +1,8 @@
 #include <Windows.h>
 #include <iostream>
 
-template <typename T>
-T* GetInterface(const char* name, const char* library) {
+template <typename Interface>
+Interface* GetInterface(const char* name, const char* library) {
 	const auto handle = GetModuleHandle(library);
 
 	if (!handle)

@@ -182,6 +182,7 @@
     <ClInclude Include="src\hooks.h" />
     <ClInclude Include="src\interfaces.h" />
     <ClInclude Include="src\netvar.h" />
+    <ClInclude Include="src\usercmd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

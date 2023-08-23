@@ -27,4 +27,5 @@ public:
 
 inline IEntityList* entityList = nullptr;
 inline IClient* client = nullptr;
-
+static void* g_Client = nullptr;
+static void* g_ClientMode = nullptr;
