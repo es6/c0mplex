@@ -25,80 +25,6 @@
 *	- if DELETE is pressed, we go to UNLOAD which destroys our hooks and gui then frees the library and exits the thread
 */
 
-template <typename T>
-T* GetInterface(const char* name, const char* library) {
-	const auto handle = GetModuleHandle(library);
-
-	if (!handle)
-		return nullptr;
-
-	const auto functionAddress = GetProcAddress(handle, "CreateInterface");
-
-	if (!functionAddress)
-		return nullptr;
-
-	/*
-	Gets the address of CreateInterface and cast it to our own "Fn" function pointer
-
-	*/
-
-	using Fn = T * (*)(const char*, int*);
-	const auto CreateInterface = (Fn)functionAddress;
-
-	return CreateInterface(name, nullptr);
-}
-
-using CreateMove = bool(__thiscall*)(void*, float, UserCmd*);
-static CreateMove CreateMoveOriginal = nullptr;
-
-constexpr ::std::ptrdiff_t dwLocalPlayer = 0xDEA98C;
-constexpr ::std::ptrdiff_t m_fFlags = 0x104;
-
-bool __stdcall CreateMoveHook(float frameTime, UserCmd* cmd) {
-	const bool result = CreateMoveOriginal(g_ClientMode, frameTime, cmd);
-
-	if (cmd->commandNumber == 0) {
-		return false;
-	}
-
-	if (!cmd || !cmd->commandNumber)
-		return result;
-
-	static unsigned int client = reinterpret_cast<unsigned int>(GetModuleHandle("client.dll"));
-
-	const unsigned int localPlayer = *reinterpret_cast<unsigned int*>(client + dwLocalPlayer);
-
-	if (localPlayer) {
-		if (!(*reinterpret_cast<int*>(localPlayer + m_fFlags) & 1)) {
-			cmd->buttons &= ~IN_JUMP;
-		}
-	}
-
-	return false;
-}
-
-/*
-	We first initialize MinHook, create a hook to CreateMove in CSGO - complete our CreateMoveHook function - then repass in the original CreateMove to return code flow
-*/
-
-DWORD WINAPI Setup2(LPVOID instance) {
-	g_Client = GetInterface<void>("VClient018", "client.dll");
-	g_ClientMode = **reinterpret_cast<void***>((*reinterpret_cast<unsigned int**>(g_Client))[10] + 5);
-
-	MH_Initialize();
-	MH_CreateHook((*static_cast<void***>(g_ClientMode))[24], &CreateMoveHook, reinterpret_cast<void**>(&CreateMoveOriginal));
-	MH_EnableHook(MH_ALL_HOOKS);
-
-	while (!GetAsyncKeyState(VK_END)) {
-		Sleep(200);
-	}
-	MH_DisableHook(MH_ALL_HOOKS);
-	MH_RemoveHook(MH_ALL_HOOKS);
-	MH_Uninitialize();
-
-	FreeLibraryAndExitThread(static_cast<HMODULE>(instance), 0);
-}
-
 
 void Setup(const HMODULE instance) {
 	try {
@@ -128,7 +54,7 @@ BOOL WINAPI DllMain(const HMODULE instance, const std::uintptr_t reason, const v
 	if (reason == DLL_PROCESS_ATTACH) {
 		DisableThreadLibraryCalls(instance);
 
-		const HANDLE thread = CreateThread(nullptr, NULL, Setup2, instance, NULL, nullptr);
+		const HANDLE thread = CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)Setup, instance, NULL, nullptr);
 		if (thread)
 			CloseHandle(thread);
 
