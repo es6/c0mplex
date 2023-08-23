@@ -17,6 +17,7 @@ This is an internal cheat for CS:GO created for learning purposes. Utilizes the 
   - Automates the retrieval of the latest game offsets
 
 ## TODO:
+- A better hooking method
 - Extra Sensory Perception (ESP) to display player information (health, name, bone matrix, etc.)
 - Aimbot with smoothing and visability check
 - Backtracking players within a 200ms window
