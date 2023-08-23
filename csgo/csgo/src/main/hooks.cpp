@@ -83,6 +83,9 @@ void* __stdcall hooks::AllocKeyValuesMemory(const std::int32_t size) noexcept
 }
 
 bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept {
+	if (cmd->commandNumber == 0)
+		return false;
+
 	// dont run logic if not called by CInput::CreateMove
 	if (!cmd->commandNumber)
 		return CreateMoveOriginal(interfaces::clientMode, frameTime, cmd);
@@ -96,9 +99,9 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept {
 
 	if (globals::localPlayer && globals::localPlayer->IsAlive()) {
 		// Run hacks
-		// features::trigger(frameTime, cmd);
-		// features::bhop(cmd);
-		// features::radar();
+		features::trigger(frameTime, cmd);
+		features::bhop(cmd);
+		features::radar();
 	}
 
 	return false;

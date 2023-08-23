@@ -63,10 +63,7 @@
     <ClCompile Include="src\main\interfaces.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\netvar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\valve\ibaseclientdll.h">
+    <ClCompile Include="src\main\netvars.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\features\features.cpp">
@@ -140,7 +137,7 @@
     <ClInclude Include="src\util\hash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\netvar.h">
+    <ClInclude Include="src\main\netvars.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\globals.h">
@@ -149,49 +146,79 @@
     <ClInclude Include="src\util\memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\valve\centity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\valve\cusercmd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\valve\cvector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\valve\icliententitylist.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\valve\ivengineclient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\valve\ienginetraceclient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\valve\istudiorender.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\valve\cmatrix.h">
+    <ClInclude Include="src\features\features.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\valve\cclientclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\valve\ccolor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\centity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\ckeyvalues.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\cmatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\valve\crecvtable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\valve\imaterialsystems.h">
+    <ClInclude Include="src\valve\cusercmd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\cutlvector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\cvector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\ibaseclientdll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\icliententitylist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\valve\iclientmodeshared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\valve\ienginetrace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\ienginevgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\iglobalvars.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\iglowmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\imaterialsystems.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\valve\ispatialquery.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\istudiorender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\isurface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\ivdebugoverlay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\valve\ivengineclient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\valve\ivmodelinfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\features\features.h">
+    <ClInclude Include="src\valve\ivpanel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

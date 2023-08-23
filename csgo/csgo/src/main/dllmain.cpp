@@ -24,24 +24,17 @@
 
 
 DWORD WINAPI Setup(LPVOID instance) {
-	try {
-		// Initialize our cheat
-		interfaces::Setup();
-		gui::Setup();
-		hooks::Setup(); 
-	}
-	catch (const std::exception& error) {
-		MessageBeep(MB_ICONERROR);
-		MessageBox(0, error.what(), "c0mplex - ERROR", MB_OK | MB_ICONEXCLAMATION);
-
-		goto UNLOAD;
-	} 
+	// Initialize our cheat
+	memory::Setup();		// finds sig
+	interfaces::Setup();	// gets interfaces
+	netvars::Setup();		// dumps offsets
+	gui::Setup();			// launches menu
+	hooks::Setup();			// places hooks
 
 	while (!GetAsyncKeyState(VK_END)) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
 
-UNLOAD:
 	hooks::Destroy();
 	gui::Destroy();
 
@@ -53,6 +46,7 @@ BOOL APIENTRY DllMain(HMODULE instance, DWORD reason, LPVOID reserved) {
 		DisableThreadLibraryCalls(instance);
 
 		const HANDLE thread = CreateThread(nullptr, 0, Setup, instance, 0, nullptr);
+
 		if (thread)
 			CloseHandle(thread);
 

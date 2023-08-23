@@ -15,7 +15,3 @@ namespace globals
 	// update the local player pointer
 	void UpdateLocalPlayer() noexcept;
 }
-
-namespace offsets {
-
-}

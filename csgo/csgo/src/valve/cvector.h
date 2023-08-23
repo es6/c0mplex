@@ -36,21 +36,21 @@ public:
 		return { x * factor, y * factor, z * factor };
 	}
 
+	inline CVector ToAngle() const noexcept
+	{
+		return {
+			std::atan2(-z, std::hypot(x, y)) * (180.0f / std::numbers::pi_v<float>),
+			std::atan2(y, x) * (180.0f / std::numbers::pi_v<float>),
+			0.0f 
+		};
+	}
+
 	inline CVector ToVector() const noexcept
 	{
 		return {
 			std::cos(Deg2Rad(x)) * std::cos(Deg2Rad(y)),
 			std::cos(Deg2Rad(x)) * std::sin(Deg2Rad(y)),
 			-std::sin(Deg2Rad(x))
-		};
-	}
-
-	inline CVector ToAngle() const noexcept
-	{
-		return {
-			std::atan2(-z, std::hypot(x, y)) * (180.0f / std::numbers::pi_v<float>),
-			std::atan2(y, x) * (180.0f / std::numbers::pi_v<float>),
-			0.0f
 		};
 	}
 

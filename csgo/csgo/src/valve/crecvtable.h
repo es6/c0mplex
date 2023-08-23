@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-enum class ESendPropType : std::int32_t
+enum class ESendPropType : std::int32_t 
 {
 	INT = 0,
 	FLOAT,
@@ -39,7 +39,7 @@ public:
 	std::int32_t objectID;
 };
 
-class CRecvTable
+class CRecvTable 
 {
 public:
 	CRecvProp* props;

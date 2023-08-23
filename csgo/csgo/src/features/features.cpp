@@ -26,7 +26,7 @@ void features::trigger(float frameTime, CUserCmd* cmd) noexcept {
 		if (trace.entity && trace.entity->IsPlayer()) {
 			if (trace.entity->IsAlive() && trace.entity->GetTeam() != globals::localPlayer->GetTeam()) {
 				// make our local player shoot
-				cmd->buttons |= ~CUserCmd::IN_ATTACK;
+				cmd->buttons |= CUserCmd::IN_ATTACK;
 			}
 		}
 	}
@@ -42,7 +42,7 @@ void features::bhop(CUserCmd* cmd) noexcept {
 }
 
 void features::radar() noexcept {
-	for (auto i = 1; i <= 64, ++i;) {
+	for (auto i = 1; i <= 64; ++i) {
 		const auto entity = interfaces::entityList->GetEntityFromIndex(i);
 
 		if (!entity)

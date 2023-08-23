@@ -1,35 +1,48 @@
 #pragma once
-#include "../valve/centity.h"
 #include "globals.h"
-#include "../valve/icliententitylist.h"
-#include "../valve/ivengineclient.h"
-#include "../valve/ienginetraceclient.h"
-#include "../valve/istudiorender.h"
-#include "../valve/cmatrix.h"
-#include "../valve/imaterialsystems.h"
-#include "../valve/ibaseclientdll.h"
-#include "../valve/iclientmodeshared.h"
-#include "../valve/ivmodelinfo.h"
 
-namespace interfaces {
-	// call once to setup interfaces
+// interfaces
+#include "../valve/ibaseclientdll.h"
+#include "../valve/icliententitylist.h"
+#include "../valve/iclientmodeshared.h"
+#include "../valve/ienginetrace.h"
+#include "../valve/ienginevgui.h"
+#include "../valve/iglobalvars.h"
+#include "../valve/iglowmanager.h"
+#include "../valve/imaterialsystems.h"
+#include "../valve/istudiorender.h"
+#include "../valve/isurface.h"
+#include "../valve/ivdebugoverlay.h"
+#include "../valve/ivengineclient.h"
+#include "../valve/ivmodelinfo.h"
+#include "../valve/ivpanel.h"
+
+// learn more about interfaces -> https://www.youtube.com/watch?v=C0wGdwnaArA
+namespace interfaces
+{
+	// call once to capture all interface pointers
 	void Setup() noexcept;
 
-	// capture interfaces via version striings
-	// using exported CreateInterface function
+	// capture an individual interface by name & module
 	template <typename Interface>
-	Interface* GetInterface(const char* name, const char* lib) noexcept;
+	Interface* Capture(const char* moduleName, const char* interfaceName) noexcept;
 
 	// interface pointers
 	inline IBaseClientDLL* client = nullptr;
-	inline IClientModeShared* clientMode = nullptr;
 	inline IClientEntityList* entityList = nullptr;
-	inline IVEngineClient* engine = nullptr;
-	inline IEngineTraceClient* trace = nullptr;
-	inline IStudioRender* studioRender = nullptr;
+	inline IClientModeShared* clientMode = nullptr;
+	inline IEngineTrace* trace = nullptr;
+	inline IEngineVGui* engineVGui = nullptr;
+	inline IGlobalVars* globals = nullptr;
+	inline IGlowManager* glow = nullptr;
 	inline IMaterialSystem* materialSystem = nullptr;
+	inline IStudioRender* studioRender = nullptr;
+	inline ISurface* surface = nullptr;
+	inline IVDebugOverlay* debugOverlay = nullptr;
+	inline IVEngineClient* engine = nullptr;
 	inline IVModelInfo* modelInfo = nullptr;
+	inline IVPanel* panel = nullptr;
 
-	// keyValuesSystem
+	// other
 	inline void* keyValuesSystem = nullptr;
 }
