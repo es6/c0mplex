@@ -66,6 +66,7 @@ public:
 	};
 
 	NETVAR(GetFlags, "CBasePlayer->m_fFlags", std::int32_t);
+	NETVAR(Spotted, "CBaseEntity->m_bSpotted", bool);
 
 	// renderable virtual functions (+0x4)
 	constexpr CModel* GetModel() noexcept

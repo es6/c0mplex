@@ -45,14 +45,14 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept {
 
 	// dont run logic if not called by CInput::CreateMove
 	if (!cmd->commandNumber)
-		return result;
+		return CreateMoveOriginal(interfaces::clientMode, frameTime, cmd);
 
 	// set view angles if return value is true to avoid stuttering
-	if (result)
+	if (CreateMoveOriginal(interfaces::clientMode, frameTime, cmd))
 		interfaces::engine->SetViewAngles(cmd->viewAngles);
 
 	// get local player
-	globals::localPlayer = interfaces::entityList->GetEntityFromIndex(interfaces::engine->GetLocalPlayerIndex());
+	globals::UpdateLocalPlayer();
 
 	// make sure we are pressing our triggerbot key
 	if (!GetAsyncKeyState(VK_XBUTTON2)) // mouse5
@@ -68,7 +68,7 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept {
 	globals::localPlayer->GetAimPunch(aimPunch);
 
 	// calculate destination of ray
-	const CVector dest = eyePosition + CVector{ cmd->viewAngles + aimPunch }.ToVector() * 10000.f;
+	const CVector dest = eyePosition + ((CVector{ cmd->viewAngles + aimPunch }).ToVector() * 10000.f);
 
 	// trace the ray from eyes -> dest
 	CTrace trace;
@@ -83,7 +83,7 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept {
 		return false;
 
 	// make our local player shoot
-	cmd->buttons |= IN_ATTACK;
+	cmd->buttons |= ~CUserCmd::IN_ATTACK;
 
 	return false;
 }

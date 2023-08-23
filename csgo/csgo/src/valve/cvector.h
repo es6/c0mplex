@@ -1,5 +1,6 @@
 #pragma once
 #include <numbers>
+#include <cstdint>
 #include <cmath>
 
 constexpr float Deg2Rad(const float deg) noexcept
@@ -10,14 +11,14 @@ constexpr float Deg2Rad(const float deg) noexcept
 class CVector
 {
 public:
-	constexpr CVector operator-(const CVector& other) const noexcept
-	{
-		return { x - other.x, y - other.y, z - other.z };
-	}
-
 	constexpr CVector operator+(const CVector& other) const noexcept
 	{
 		return { x + other.x, y + other.y, z + other.z };
+	}
+
+	constexpr CVector operator-(const CVector& other) const noexcept
+	{
+		return { x - other.x, y - other.y, z - other.z };
 	}
 
 	constexpr CVector operator*(const float scale) const noexcept
@@ -25,8 +26,17 @@ public:
 		return { x * scale, y * scale, z * scale };
 	}
 
-	// convert angles -> vector
-	CVector ToVector() const noexcept
+	constexpr CVector operator/(const CVector& other) const noexcept
+	{
+		return { x / other.x, y / other.y, z / other.z };
+	}
+
+	constexpr CVector Scale(float factor) const noexcept
+	{
+		return { x * factor, y * factor, z * factor };
+	}
+
+	inline CVector ToVector() const noexcept
 	{
 		return {
 			std::cos(Deg2Rad(x)) * std::cos(Deg2Rad(y)),
@@ -35,8 +45,25 @@ public:
 		};
 	}
 
+	inline CVector ToAngle() const noexcept
+	{
+		return {
+			std::atan2(-z, std::hypot(x, y)) * (180.0f / std::numbers::pi_v<float>),
+			std::atan2(y, x) * (180.0f / std::numbers::pi_v<float>),
+			0.0f
+		};
+	}
+
+	float x{ }, y{ }, z{ };
+};
+
+__declspec(align(16)) class CVectorAligned : public CVector
+{
 public:
-	float x{ };
-	float y{ };
-	float z{ };
+	constexpr CVectorAligned operator-(const CVectorAligned& other) const noexcept
+	{
+		return { x - other.x, y - other.y, z - other.z, w - other.w };
+	}
+
+	float w{ };
 };

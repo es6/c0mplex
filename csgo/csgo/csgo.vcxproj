@@ -151,8 +151,9 @@
     <ClCompile Include="dependencies\minhook\hde\hde64.c" />
     <ClCompile Include="dependencies\minhook\hook.c" />
     <ClCompile Include="dependencies\minhook\trampoline.c" />
-    <ClCompile Include="src\main\bhop.cpp" />
+    <ClCompile Include="src\features\misc.cpp" />
     <ClCompile Include="src\main\dllmain.cpp" />
+    <ClCompile Include="src\main\globals.cpp" />
     <ClCompile Include="src\main\gui.cpp" />
     <ClCompile Include="src\main\hooks.cpp" />
     <ClCompile Include="src\main\interfaces.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="dependencies\minhook\hde\table64.h" />
     <ClInclude Include="dependencies\minhook\minhook.h" />
     <ClInclude Include="dependencies\minhook\trampoline.h" />
+    <ClInclude Include="src\features\misc.h" />
     <ClInclude Include="src\util\hash.h" />
     <ClInclude Include="src\main\gui.h" />
     <ClInclude Include="src\main\globals.h" />

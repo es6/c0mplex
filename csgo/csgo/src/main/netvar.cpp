@@ -36,28 +36,3 @@ void netvars::Dump(const std::string_view base, CRecvTable* table, const std::ui
 		data[hash::RunTime(std::format("{}->{}", base, prop->name).c_str())] = offset + prop->offset;
 	}
 }
-
-/*
-Netvar Usage Example with radar hack
-
-void HackThread(HMODULE instance) {
-	client = GetInterface<IClient>("VClient018", "client.dll");
-	entityList = GetInterface<IEntityList>("VClientEntityList003", "client.dll");
-
-	SetupNetvars();
-
-	while (!GetAsyncKeyState(VK_END)) {
-		for (auto i = 1; i <= 64, ++i) {
-			const auto entity = entityList->GetClientEntity(i);
-
-			if (!entity)
-				continue;
-			// check if dormant, if alive, if enemy
-
-			entity->Spotted() = true;
-		}
-	}
-
-	FreeLibraryAndExitThread(instance, 0);
-}
-*/
