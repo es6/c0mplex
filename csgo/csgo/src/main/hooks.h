@@ -54,4 +54,9 @@ namespace hooks {
 		const CVector& modelOrigin,
 		const std::int32_t flags
 	) noexcept;
+
+	// PaintTraverse
+	using PaintTraverseFn = void(__thiscall*)(IVPanel*, std::uintptr_t, bool, bool) noexcept;
+	inline PaintTraverseFn PaintTraverseOriginal = nullptr;
+	void __stdcall PaintTraverse(std::uintptr_t vguiPanel, bool forceRepaint, bool allowForce) noexcept;
 }

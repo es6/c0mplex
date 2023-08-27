@@ -31,6 +31,9 @@ void hooks::Setup() {
 	if (MH_CreateHook(memory::Get(interfaces::studioRender, 29), &DrawModel, reinterpret_cast<void**>(&DrawModelOriginal)))
 		throw std::runtime_error("Unable to hook DrawModel()");
 
+	if (MH_CreateHook(memory::Get(interfaces::panel, 41), &PaintTraverse, reinterpret_cast<void**>(&PaintTraverseOriginal)))
+		throw std::runtime_error("Unable to hook PaintTraverse()");
+
 	if (MH_EnableHook(MH_ALL_HOOKS))
 		throw std::runtime_error("Unable to enable hooks");
 
@@ -146,4 +149,9 @@ void __stdcall hooks::DrawModel(
 		}
 	}
 	DrawModelOriginal(interfaces::studioRender, results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
+}
+
+void __stdcall hooks::PaintTraverse(std::uintptr_t vguiPanel, bool forceRepair, bool allowForce) noexcept {
+	// call original function
+	PaintTraverseOriginal(interfaces::panel, vguiPanel, forceRepair, allowForce);
 }
