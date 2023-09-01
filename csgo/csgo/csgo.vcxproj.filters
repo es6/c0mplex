@@ -222,4 +222,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="build\Xenos.exe" />
+    <None Include="build\csgo.dll" />
+    <None Include="build\csgo.pdb" />
+  </ItemGroup>
 </Project>

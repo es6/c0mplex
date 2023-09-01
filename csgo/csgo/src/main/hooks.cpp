@@ -126,22 +126,13 @@ void __stdcall hooks::DrawModel(
 
 		// make sure entity is a valid enemy player
 		if (entity && entity->IsPlayer() && entity->GetTeam() != globals::localPlayer->GetTeam()) {
-			// gets material to override
-			static IMaterial* material = interfaces::materialSystem->FindMaterial("debug/debugambientcube");
-
-			// modulate alpha
-			interfaces::studioRender->SetAlphaModulation(1.f);
 
 			// show through walls
-			material->SetMaterialVarFlag(IMaterial::IGNOREZ, true);
-			interfaces::studioRender->SetColorModulation(globals::hidden);
-			interfaces::studioRender->ForcedMaterialOverride(material);
+			features::chams(results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags, true, globals::hidden);
 			DrawModelOriginal(interfaces::studioRender, results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
 
 			// show only visible
-			material->SetMaterialVarFlag(IMaterial::IGNOREZ, false);
-			interfaces::studioRender->SetColorModulation(globals::visible);
-			interfaces::studioRender->ForcedMaterialOverride(material);
+			features::chams(results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags, false, globals::visible);
 			DrawModelOriginal(interfaces::studioRender, results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
 
 			// reset material override and return from hook
@@ -151,7 +142,18 @@ void __stdcall hooks::DrawModel(
 	DrawModelOriginal(interfaces::studioRender, results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
 }
 
-void __stdcall hooks::PaintTraverse(std::uintptr_t vguiPanel, bool forceRepair, bool allowForce) noexcept {
+void __stdcall hooks::PaintTraverse(std::uintptr_t vguiPanel, bool forceRepaint, bool allowForce) noexcept
+{
+	// make sure we have the right panel
+	if (vguiPanel == interfaces::engineVGui->GetPanel(PANEL_TOOLS))
+	{
+		// make sure we are in-game
+		if (interfaces::engine->IsInGame() && globals::localPlayer)
+		{
+			features::esp(vguiPanel, forceRepaint, allowForce);
+		}
+	}
+
 	// call original function
-	PaintTraverseOriginal(interfaces::panel, vguiPanel, forceRepair, allowForce);
+	PaintTraverseOriginal(interfaces::panel, vguiPanel, forceRepaint, allowForce);
 }

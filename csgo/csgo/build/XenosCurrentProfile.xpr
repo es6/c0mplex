@@ -1,5 +1,5 @@
 <XenosConfig>
-	<imagePath>C:\Users\benli\source\repos\internal menu\build\internal menu.dll</imagePath>
+	<imagePath>C:\Users\benli\source\repos\csgo\build\csgo.dll</imagePath>
 	<manualMapFlags>0</manualMapFlags>
 	<procName>csgo.exe</procName>
 	<hijack>0</hijack>
